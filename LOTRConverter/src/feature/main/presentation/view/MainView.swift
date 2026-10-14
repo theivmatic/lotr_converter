@@ -32,7 +32,9 @@ struct MainView: View {
                 HStack {
                     VStack {
                         CurrencyWidget(
-                            title: "Silver Piece", image: "silverpiece", textColor: .white
+                            title: "Silver Piece",
+                            image: .silverpiece,
+                            textColor: .white
                         )
                         
                         AppTextField(text: $leftAmount)
@@ -45,7 +47,9 @@ struct MainView: View {
                     
                     VStack {
                         CurrencyWidget(
-                            title: "Gold Piece", image: "goldpiece", textColor: .white
+                            title: "Gold Piece",
+                            image: .goldpiece,
+                            textColor: .white
                         )
                         
                         AppTextField(text: $rightAmount)
@@ -59,7 +63,6 @@ struct MainView: View {
                 HStack {
                     Spacer()
 
-                    
                     Button {
                         showExchangeInfo.toggle()
                     } label: {
@@ -68,8 +71,10 @@ struct MainView: View {
                             .foregroundStyle(.white)
                             .padding([.trailing], 32)
                     }
+                    .sheet(isPresented: $showExchangeInfo) {
+                        InfoView()
+                    }
                 }
-                
             }
         }
     }

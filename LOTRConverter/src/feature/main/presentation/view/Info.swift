@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct InfoView: View {
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         ZStack {
             Image(.parchment)
@@ -26,72 +27,37 @@ struct InfoView: View {
                     .padding(.horizontal, 16)
                     .padding(.bottom, 32)
                 
-                HStack {
-                    CurrencyWidget(
-                        title: "1 Gold Piece",
-                        image: "goldpiece",
-                        textColor: .black
-                    )
-                    
-                    Text("=")
-                    
-                    CurrencyWidget(
-                        title: "4 Gold Pennies",
-                        image: "goldpenny",
-                        textColor: .black
-                    )
-                }.padding(.bottom, 16)
+                ExchangeRateWidget(
+                    firstCurrencyName: "1 Gold Piece",
+                    firstCurrencyImage: .goldpiece,
+                    secondCurrencyName: "4 Gold Pennies",
+                    secondCurrencyImage: .goldpenny
+                )
                 
-                HStack {
-                    CurrencyWidget(
-                        title: "1 Gold Penny",
-                        image: "goldpenny",
-                        textColor: .black
-                    )
-                    
-                    Text("=")
-                    
-                    CurrencyWidget(
-                        title: "4 Silver Pieces",
-                        image: "silverpiece",
-                        textColor: .black
-                    )
-                }.padding(.bottom, 16)
+                ExchangeRateWidget(
+                    firstCurrencyName: "1 Gold Penny",
+                    firstCurrencyImage: .goldpenny,
+                    secondCurrencyName: "4 Silver Pieces",
+                    secondCurrencyImage: .silverpiece
+                )
                 
-                HStack {
-                    CurrencyWidget(
-                        title: "1 Silver Piece",
-                        image: "silverpiece",
-                        textColor: .black
-                    )
-                    
-                    Text("=")
-                    
-                    CurrencyWidget(
-                        title: "4 Silver Pennies",
-                        image: "silverpenny",
-                        textColor: .black
-                    )
-                }.padding(.bottom, 16)
+                ExchangeRateWidget(
+                    firstCurrencyName: "1 Silver Piece",
+                    firstCurrencyImage: .silverpiece,
+                    secondCurrencyName: "4 Silver Pennies",
+                    secondCurrencyImage: .silverpenny
+                )
                 
-                HStack {
-                    CurrencyWidget(
-                        title: "1 Silver Penny",
-                        image: "silverpenny",
-                        textColor: .black
-                    )
-                    
-                    Text("=")
-                    
-                    CurrencyWidget(
-                        title: "100 Copper Pennies",
-                        image: "copperpenny",
-                        textColor: .black
-                    )
-                }.padding(.bottom, 32)
+                ExchangeRateWidget(
+                    firstCurrencyName: "1 Silver Penny",
+                    firstCurrencyImage: .silverpenny,
+                    secondCurrencyName: "100 Copper Pennies",
+                    secondCurrencyImage: .copperpenny,
+                    bottomPadding: 32
+                )
                 
-                Button ("Done")  {
-                    
+                Button("Done") {
+                    dismiss()
                 }
                     .buttonStyle(.borderedProminent)
                     .tint(.brown.mix(with: .black, by: 0.2))
@@ -99,8 +65,6 @@ struct InfoView: View {
                     .foregroundStyle(.white)
             }
             .foregroundStyle(.black)
-            
-            
         }
     }
 }

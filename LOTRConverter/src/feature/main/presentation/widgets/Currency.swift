@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CurrencyWidget: View {
     let title: String
-    let image: String
+    let image: ImageResource
     let textColor: Color
     
     var body: some View {
