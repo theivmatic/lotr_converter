@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct MainView: View {
+    @State var showExchangeInfo: Bool = false
+    @State var leftAmount: String = ""
+    @State var rightAmount: String = ""
+    
     var body: some View {
         ZStack {
             // Background image
@@ -31,7 +35,7 @@ struct MainView: View {
                             title: "Silver Piece", image: "silverpiece"
                         )
                         
-                        
+                        AppTextField(text: $leftAmount)
                     }
                     
                     Image(systemName: "equal")
@@ -44,17 +48,26 @@ struct MainView: View {
                             title: "Gold Piece", image: "goldpiece"
                         )
                         
-                        
+                        AppTextField(text: $rightAmount)
                     }
                 }
+                .padding([.trailing, .leading,], 16)
+                .padding([.top, .bottom], 32)
+                .background(.black.opacity(0.5))
                 
                 Spacer()
                 HStack {
                     Spacer()
-                    Image(systemName: "info.circle.fill")
-                        .font(.largeTitle)
-                        .foregroundStyle(.white)
-                        .padding([.trailing], 32)
+
+                    
+                    Button {
+                        showExchangeInfo.toggle()
+                    } label: {
+                        Image(systemName: "info.circle.fill")
+                            .font(.largeTitle)
+                            .foregroundStyle(.white)
+                            .padding([.trailing], 32)
+                    }
                 }
                 
             }
