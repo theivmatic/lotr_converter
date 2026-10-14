@@ -10,6 +10,7 @@ import SwiftUI
 struct CurrencyWidget: View {
     let title: String
     let image: String
+    let textColor: Color
     
     var body: some View {
         HStack {
@@ -19,7 +20,7 @@ struct CurrencyWidget: View {
                 .frame(height: 33)
             Text(title)
                 .font(.headline)
-                .foregroundStyle(.white)
+                .foregroundStyle(textColor)
         }
     }
 }

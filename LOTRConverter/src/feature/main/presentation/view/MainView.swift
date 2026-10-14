@@ -32,7 +32,7 @@ struct MainView: View {
                 HStack {
                     VStack {
                         CurrencyWidget(
-                            title: "Silver Piece", image: "silverpiece"
+                            title: "Silver Piece", image: "silverpiece", textColor: .white
                         )
                         
                         AppTextField(text: $leftAmount)
@@ -45,14 +45,14 @@ struct MainView: View {
                     
                     VStack {
                         CurrencyWidget(
-                            title: "Gold Piece", image: "goldpiece"
+                            title: "Gold Piece", image: "goldpiece", textColor: .white
                         )
                         
                         AppTextField(text: $rightAmount)
                     }
                 }
-                .padding([.trailing, .leading,], 16)
-                .padding([.top, .bottom], 32)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 32)
                 .background(.black.opacity(0.5))
                 
                 Spacer()
