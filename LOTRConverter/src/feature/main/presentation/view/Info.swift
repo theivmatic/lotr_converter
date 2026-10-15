@@ -12,10 +12,7 @@ struct InfoView: View {
     
     var body: some View {
         ZStack {
-            Image(.parchment)
-                .resizable()
-                .ignoresSafeArea()
-                .background(.black)
+            ImageBackground(image: .parchment)
             
             VStack {
                 Text("Exchange Rates")

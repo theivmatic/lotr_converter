@@ -15,10 +15,7 @@ struct SelectCurrencyView: View {
 
     var body: some View {
         ZStack {
-            Image(.parchment)
-                .resizable()
-                .ignoresSafeArea()
-                .background(.black)
+            ImageBackground(image: .parchment)
 
             VStack {
                 Text("Select the currency you are starting with:")

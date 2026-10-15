@@ -17,10 +17,7 @@ struct MainView: View {
     
     var body: some View {
         ZStack {
-            // Background image
-            Image(.background)
-                .resizable()
-                .ignoresSafeArea()
+            ImageBackground(image: .background)
             
             VStack {
                 Image(.prancingpony)
