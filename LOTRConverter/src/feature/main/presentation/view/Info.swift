@@ -9,6 +9,7 @@ import SwiftUI
 
 struct InfoView: View {
     @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         ZStack {
             Image(.parchment)
