@@ -9,8 +9,11 @@ import SwiftUI
 
 struct MainView: View {
     @State var showExchangeInfo: Bool = false
+    @State var showSelectCurrency: Bool = false
     @State var leftAmount: String = ""
     @State var rightAmount: String = ""
+    @State var firstSelectedCurrency: CurrencyEnum  = .copperPenny
+    @State var secondSelectedCurrency: CurrencyEnum = .silverPiece
     
     var body: some View {
         ZStack {
@@ -32,10 +35,11 @@ struct MainView: View {
                 HStack {
                     VStack {
                         CurrencyWidget(
-                            title: "Silver Piece",
-                            image: .silverpiece,
+                            title: firstSelectedCurrency.name,
+                            image: firstSelectedCurrency.image,
                             textColor: .white
                         )
+                        
                         
                         AppTextField(text: $leftAmount)
                     }
@@ -47,8 +51,8 @@ struct MainView: View {
                     
                     VStack {
                         CurrencyWidget(
-                            title: "Gold Piece",
-                            image: .goldpiece,
+                            title: secondSelectedCurrency.name,
+                            image: secondSelectedCurrency.image,
                             textColor: .white
                         )
                         
@@ -58,6 +62,15 @@ struct MainView: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 32)
                 .background(.black.opacity(0.5))
+                .onTapGesture {
+                    showSelectCurrency.toggle()
+                }
+                .sheet(isPresented: $showSelectCurrency) {
+                    SelectCurrencyView(
+                        firstSelectedCurrency: $firstSelectedCurrency,
+                        secondSelectedCurrency: $secondSelectedCurrency
+                    )
+                }
                 
                 Spacer()
                 HStack {
@@ -76,6 +89,7 @@ struct MainView: View {
                     }
                 }
             }
+           
         }
     }
 }

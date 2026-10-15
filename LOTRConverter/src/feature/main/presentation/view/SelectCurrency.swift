@@ -9,6 +9,9 @@ import SwiftUI
 
 struct SelectCurrencyView: View {
     @Environment(\.dismiss) var dismiss
+    
+    @Binding var firstSelectedCurrency: CurrencyEnum
+    @Binding var secondSelectedCurrency: CurrencyEnum
 
     var body: some View {
         ZStack {
@@ -21,28 +24,20 @@ struct SelectCurrencyView: View {
                 Text("Select the currency you are starting with:")
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
+                    .padding(.bottom, 16)
 
-                LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
-                    ForEach(CurrencyEnum.allCases) { currency in
-                        CurrencyCard(
-                            title: currency.name,
-                            image: currency.image
-                        )
-                    }
-                }
+                CurrenciesGrid(
+                    selectedCurrency: $firstSelectedCurrency
+                )
 
                 Text("Select the currency you would like to convert to:")
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
+                    .padding(.bottom, 16)
                 
-                LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
-                    ForEach(CurrencyEnum.allCases) { currency in
-                        CurrencyCard(
-                            title: currency.name,
-                            image: currency.image
-                        )
-                    }
-                }
+                CurrenciesGrid(
+                    selectedCurrency: $secondSelectedCurrency
+                )
 
                 Button("Done") {
                     dismiss()
@@ -53,10 +48,17 @@ struct SelectCurrencyView: View {
                 .foregroundStyle(.white)
             }
             .padding()
+            .foregroundStyle(.black)
         }
     }
 }
 
 #Preview {
-    SelectCurrencyView()
+    @Previewable @State var firstSelectedCurrency: CurrencyEnum = .silverPenny
+    @Previewable @State var secondSelectedCurrency: CurrencyEnum = .copperPenny
+    
+    SelectCurrencyView(
+        firstSelectedCurrency: $firstSelectedCurrency,
+        secondSelectedCurrency: $secondSelectedCurrency
+    )
 }
