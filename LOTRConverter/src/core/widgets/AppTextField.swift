@@ -10,11 +10,13 @@ import SwiftUI
 
 struct AppTextField: View {
     let text: Binding<String>
+    let focus: FocusState<Bool>.Binding
     
     var body: some View {
         TextField("Amount", text: text)
             .textFieldStyle(.roundedBorder)
             .multilineTextAlignment(.center)
-            .keyboardType(.numberPad)
+            .keyboardType(.decimalPad)
+            .focused(focus)
     }
 }

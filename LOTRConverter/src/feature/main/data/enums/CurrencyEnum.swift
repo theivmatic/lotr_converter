@@ -19,30 +19,51 @@ enum CurrencyEnum: Double, CaseIterable, Identifiable {
     var image: ImageResource {
         switch self {
         case .copperPenny:
-            return .copperpenny
+             .copperpenny
         case .silverPenny:
-            return .silverpenny
+             .silverpenny
         case .silverPiece:
-            return .silverpiece
+             .silverpiece
         case .goldPenny:
-            return .goldpenny
+             .goldpenny
         case .goldPiece:
-            return .goldpiece
+             .goldpiece
         }
     }
     
     var name: String {
         switch self {
         case .copperPenny:
-            return "Copper Penny"
+             "Copper Penny"
         case .silverPenny:
-            return "Silver Penny"
+             "Silver Penny"
         case .silverPiece:
-            return "Silver Piece"
+             "Silver Piece"
         case .goldPenny:
-            return "Gold Penny"
+             "Gold Penny"
         case .goldPiece:
-            return "Gold Piece"
+             "Gold Piece"
         }
+    }
+    
+    func convert(_ amount: String, to currency: CurrencyEnum) -> String {
+        let formatter = NumberFormatter()
+        formatter.locale = .current
+        formatter.numberStyle = .decimal
+        
+        guard let number = formatter.number(from: amount) else {
+            return ""
+        }
+        
+        let convertedAmount = (number.doubleValue / self.rawValue) * currency.rawValue
+        
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        
+        guard let result = formatter.string(from: NSNumber(value: convertedAmount)) else {
+            return ""
+        }
+        
+        return result
     }
 }

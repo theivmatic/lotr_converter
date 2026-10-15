@@ -12,6 +12,8 @@ struct MainView: View {
     @State var showSelectCurrency: Bool = false
     @State var leftAmount: String = ""
     @State var rightAmount: String = ""
+    @FocusState var leftField
+    @FocusState var rightField
     @State var firstSelectedCurrency: CurrencyEnum  = .copperPenny
     @State var secondSelectedCurrency: CurrencyEnum = .silverPiece
     
@@ -38,7 +40,24 @@ struct MainView: View {
                         )
                         
                         
-                        AppTextField(text: $leftAmount)
+                        AppTextField(
+                            text: $leftAmount,
+                            focus: $leftField
+                        )
+                        .onChange(of: leftAmount) {
+                            if leftField {
+                                rightAmount = firstSelectedCurrency.convert(
+                                    leftAmount,
+                                    to: secondSelectedCurrency
+                                )
+                            }
+                        }
+                        .onChange(of: firstSelectedCurrency) {
+                            rightAmount = secondSelectedCurrency.convert(
+                                leftAmount,
+                                to: firstSelectedCurrency
+                            )
+                        }
                     }
                     
                     Image(systemName: "equal")
@@ -53,7 +72,24 @@ struct MainView: View {
                             textColor: .white
                         )
                         
-                        AppTextField(text: $rightAmount)
+                        AppTextField(
+                            text: $rightAmount,
+                            focus: $rightField
+                        )
+                        .onChange(of: rightAmount) {
+                            if rightField {
+                                leftAmount = secondSelectedCurrency.convert(
+                                    rightAmount,
+                                    to: firstSelectedCurrency
+                                )
+                            }
+                        }
+                        .onChange(of: secondSelectedCurrency) {
+                            rightAmount = firstSelectedCurrency.convert(
+                                leftAmount,
+                                to: secondSelectedCurrency
+                            )
+                        }
                     }
                 }
                 .padding(.horizontal, 16)
