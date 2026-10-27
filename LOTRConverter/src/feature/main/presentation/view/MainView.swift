@@ -15,6 +15,8 @@ struct MainView: View {
     @State var rightAmount: String = ""
     @FocusState var leftField
     @FocusState var rightField
+    @FocusState private var leftFieldFocused: Bool
+    @FocusState private var rightFieldFocused: Bool
     @State var firstSelectedCurrency: CurrencyEnum  = .copperPenny
     @State var secondSelectedCurrency: CurrencyEnum = .silverPiece
     let currencyTip = CurrencyTip()
@@ -50,6 +52,7 @@ struct MainView: View {
                             text: $leftAmount,
                             focus: $leftField
                         )
+                        .focused($leftFieldFocused)
                         .onChange(of: leftAmount) {
                             if leftField {
                                 rightAmount = firstSelectedCurrency.convert(
@@ -86,6 +89,7 @@ struct MainView: View {
                             text: $rightAmount,
                             focus: $rightField
                         )
+                        .focused($rightFieldFocused)
                         .onChange(of: rightAmount) {
                             if rightField {
                                 leftAmount = secondSelectedCurrency.convert(
@@ -121,23 +125,35 @@ struct MainView: View {
                 }
                 
                 Spacer()
-                HStack {
-                    Spacer()
-
-                    Button {
-                        showExchangeInfo.toggle()
-                    } label: {
-                        Image(systemName: "info.circle.fill")
-                            .font(.largeTitle)
-                            .foregroundStyle(.white)
-                            .padding([.trailing], 32)
-                    }
-                    .sheet(isPresented: $showExchangeInfo) {
-                        InfoView()
+                if !leftFieldFocused && !rightFieldFocused {
+                    HStack {
+                        Spacer()
+                        
+                        Button {
+                            showExchangeInfo.toggle()
+                        } label: {
+                            Image(systemName: "info.circle.fill")
+                                .font(.largeTitle)
+                                .foregroundStyle(.white)
+                                .padding([.trailing], 32)
+                        }
+                        .sheet(isPresented: $showExchangeInfo) {
+                            InfoView()
+                        }
                     }
                 }
             }
            
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            if (leftFieldFocused) {
+                leftFieldFocused = false
+            }
+            
+            if (rightFieldFocused) {
+                rightFieldFocused = false
+            }
         }
         .task {
             try? Tips.configure()
