@@ -13,6 +13,7 @@ enum CurrencyEnum: Double, CaseIterable, Identifiable {
     case silverPiece = 16
     case goldPenny = 4
     case goldPiece = 1
+    case platinumPiece = 0.25
     
     var id: CurrencyEnum { self }
     
@@ -28,6 +29,8 @@ enum CurrencyEnum: Double, CaseIterable, Identifiable {
              .goldpenny
         case .goldPiece:
              .goldpiece
+        case .platinumPiece:
+             .prancingpony
         }
     }
     
@@ -43,6 +46,27 @@ enum CurrencyEnum: Double, CaseIterable, Identifiable {
              "Gold Penny"
         case .goldPiece:
              "Gold Piece"
+        case .platinumPiece:
+             "Platinum Piece"
+        }
+    }
+    
+    static func fromString(value: String) -> CurrencyEnum {
+        switch value {
+        case "Copper Penny":
+                .copperPenny
+        case "Silver Penny":
+                .silverPenny
+        case "Silver Piece":
+                .silverPiece
+        case "Gold Penny":
+                .goldPenny
+        case "Gold Piece":
+                .goldPiece
+        case "Platinum Piece":
+                .platinumPiece
+        default:
+                .copperPenny
         }
     }
     

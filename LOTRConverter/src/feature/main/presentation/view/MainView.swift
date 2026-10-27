@@ -59,6 +59,10 @@ struct MainView: View {
                             }
                         }
                         .onChange(of: firstSelectedCurrency) {
+                            UserDefaults.standard.set(
+                                firstSelectedCurrency.name,
+                                forKey: "defaultFirstCurrency"
+                            )
                             rightAmount = secondSelectedCurrency.convert(
                                 leftAmount,
                                 to: firstSelectedCurrency
@@ -91,6 +95,10 @@ struct MainView: View {
                             }
                         }
                         .onChange(of: secondSelectedCurrency) {
+                            UserDefaults.standard.set(
+                                secondSelectedCurrency.name,
+                                forKey: "defaultSecondCurrency"
+                            )
                             rightAmount = firstSelectedCurrency.convert(
                                 leftAmount,
                                 to: secondSelectedCurrency
@@ -133,6 +141,11 @@ struct MainView: View {
         }
         .task {
             try? Tips.configure()
+            
+            let defaultFirstCurrency = UserDefaults.standard.string(forKey: "defaultFirstCurrency")
+            let defaultSecondCurrency = UserDefaults.standard.string(forKey: "defaultSecondCurrency")
+            firstSelectedCurrency = CurrencyEnum.fromString(value: defaultFirstCurrency ??  "Copper Penny")
+            secondSelectedCurrency = CurrencyEnum.fromString(value: defaultSecondCurrency ??  "Silver Penny")
         }
     }
 }
