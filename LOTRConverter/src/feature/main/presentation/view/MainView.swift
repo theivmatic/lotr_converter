@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct MainView: View {
     @State var showExchangeInfo: Bool = false
@@ -16,6 +17,7 @@ struct MainView: View {
     @FocusState var rightField
     @State var firstSelectedCurrency: CurrencyEnum  = .copperPenny
     @State var secondSelectedCurrency: CurrencyEnum = .silverPiece
+    let currencyTip = CurrencyTip()
     
     var body: some View {
         ZStack {
@@ -36,7 +38,11 @@ struct MainView: View {
                         CurrencyWidget(
                             title: firstSelectedCurrency.name,
                             image: firstSelectedCurrency.image,
-                            textColor: .white
+                            textColor: .white,
+                        )
+                        .popoverTip(
+                            currencyTip,
+                            arrowEdge: .bottom
                         )
                         
                         
@@ -69,7 +75,7 @@ struct MainView: View {
                         CurrencyWidget(
                             title: secondSelectedCurrency.name,
                             image: secondSelectedCurrency.image,
-                            textColor: .white
+                            textColor: .white,
                         )
                         
                         AppTextField(
@@ -97,6 +103,7 @@ struct MainView: View {
                 .background(.black.opacity(0.5))
                 .onTapGesture {
                     showSelectCurrency.toggle()
+                    currencyTip.invalidate(reason: .actionPerformed)
                 }
                 .sheet(isPresented: $showSelectCurrency) {
                     SelectCurrencyView(
@@ -123,6 +130,9 @@ struct MainView: View {
                 }
             }
            
+        }
+        .task {
+            try? Tips.configure()
         }
     }
 }

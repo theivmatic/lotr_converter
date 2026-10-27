@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct CurrencyWidget: View {
     let title: String
